@@ -23,7 +23,17 @@ export default function ProtectedRoute({ children, requiredRole }: ProtectedRout
   }
 
   if (requiredRole && user.role !== requiredRole) {
-    return <Navigate to="/" replace />;
+    return (
+      <div className="min-h-screen flex items-center justify-center px-4">
+        <div className="max-w-md w-full glass rounded-2xl p-6 text-center">
+          <h2 className="text-2xl font-semibold mb-2">Access denied</h2>
+          <p className="text-muted-foreground mb-4">You don't have permission to view this page.</p>
+          <div className="space-x-2">
+            <a href="/" className="inline-flex items-center px-4 py-2 rounded-xl bg-primary text-primary-foreground hover-glow">Go Home</a>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return <>{children}</>;

@@ -41,7 +41,7 @@ const App = () => {
                 <Route path="/student" element={<Navigate to="/panel/student" replace />} />
                 <Route path="/AdminDashboard" element={<Navigate to="/panel/admin" replace />} />
                 <Route path="/StudentDashboard" element={<Navigate to="/panel/student" replace />} />
-                <Route path="/panel/admin" element={
+                <Route path="/panel/admin/*" element={
                   <ProtectedRoute requiredRole="admin">
                     <AdminRoute />
                   </ProtectedRoute>
