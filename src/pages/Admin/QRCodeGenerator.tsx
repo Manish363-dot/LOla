@@ -80,29 +80,29 @@ export const QRCodeGenerator: React.FC = () => {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-gray-900">QR Code Generator</h2>
-        <div className="text-sm text-gray-500">
+        <h2 className="text-2xl font-bold text-foreground">QR Code Generator</h2>
+        <div className="text-sm text-muted-foreground">
           Generate secure QR codes for attendance marking
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* QR Generation Controls */}
-        <div className="bg-gray-50 rounded-lg p-6 space-y-6">
-          <h3 className="text-lg font-semibold text-gray-900">Generation Settings</h3>
+        <div className="rounded-lg p-6 space-y-6 glass">
+          <h3 className="text-lg font-semibold text-foreground">Generation Settings</h3>
           
           {/* Session Type */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-foreground mb-2">
               Session Type
             </label>
-            <div className="flex rounded-lg border border-gray-300 overflow-hidden">
+            <div className="flex rounded-lg border overflow-hidden">
               <button
                 onClick={() => setSessionType('check-in')}
                 className={`flex-1 px-4 py-2 text-sm font-medium ${
                   sessionType === 'check-in'
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-white text-gray-700 hover:bg-gray-50'
+                    ? 'bg-primary text-primary-foreground'
+                    : 'bg-background text-foreground hover:bg-muted'
                 }`}
               >
                 Check-in
@@ -111,8 +111,8 @@ export const QRCodeGenerator: React.FC = () => {
                 onClick={() => setSessionType('check-out')}
                 className={`flex-1 px-4 py-2 text-sm font-medium ${
                   sessionType === 'check-out'
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-white text-gray-700 hover:bg-gray-50'
+                    ? 'bg-primary text-primary-foreground'
+                    : 'bg-background text-foreground hover:bg-muted'
                 }`}
               >
                 Check-out
@@ -123,7 +123,7 @@ export const QRCodeGenerator: React.FC = () => {
           {/* Location Settings */}
           <div>
             <div className="flex items-center justify-between mb-2">
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-foreground">
                 Location Restriction
               </label>
               <label className="relative inline-flex items-center cursor-pointer">
@@ -133,7 +133,7 @@ export const QRCodeGenerator: React.FC = () => {
                   onChange={(e) => setUseLocation(e.target.checked)}
                   className="sr-only peer"
                 />
-                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                <div className="w-11 h-6 bg-muted peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/30 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-background after:border after:border-border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
               </label>
             </div>
             
@@ -141,38 +141,38 @@ export const QRCodeGenerator: React.FC = () => {
               <div className="space-y-3">
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs text-gray-600 mb-1">Latitude</label>
+                    <label className="block text-xs text-muted-foreground mb-1">Latitude</label>
                     <input
                       type="number"
                       step="any"
                       value={location.latitude}
                       onChange={(e) => setLocation({ ...location, latitude: parseFloat(e.target.value) })}
-                      className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-background text-foreground"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs text-gray-600 mb-1">Longitude</label>
+                    <label className="block text-xs text-muted-foreground mb-1">Longitude</label>
                     <input
                       type="number"
                       step="any"
                       value={location.longitude}
                       onChange={(e) => setLocation({ ...location, longitude: parseFloat(e.target.value) })}
-                      className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-background text-foreground"
                     />
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs text-gray-600 mb-1">Radius (meters)</label>
+                  <label className="block text-xs text-muted-foreground mb-1">Radius (meters)</label>
                   <input
                     type="number"
                     value={location.radius}
                     onChange={(e) => setLocation({ ...location, radius: parseInt(e.target.value) })}
-                    className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-background text-foreground"
                   />
                 </div>
                 <button
                   onClick={getCurrentLocation}
-                  className="flex items-center space-x-2 px-3 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors text-sm"
+                  className="flex items-center space-x-2 px-3 py-2 bg-muted text-foreground rounded-lg hover:bg-muted/80 transition-colors text-sm"
                 >
                   <MapPin className="h-4 w-4" />
                   <span>Use Current Location</span>
@@ -184,7 +184,7 @@ export const QRCodeGenerator: React.FC = () => {
           <button
             onClick={handleGenerateQR}
             disabled={generating}
-            className="w-full flex items-center justify-center space-x-2 px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-200 transition-colors disabled:opacity-50"
+            className="w-full flex items-center justify-center space-x-2 px-4 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 focus:ring-4 focus:ring-primary/20 transition-colors disabled:opacity-50"
           >
             {generating ? (
               <RefreshCw className="h-5 w-5 animate-spin" />
@@ -196,20 +196,20 @@ export const QRCodeGenerator: React.FC = () => {
         </div>
 
         {/* QR Display */}
-        <div className="bg-gray-50 rounded-lg p-6 text-center space-y-4">
+        <div className="rounded-lg p-6 text-center space-y-4 glass">
           {activeQR ? (
             <>
               <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-gray-900">
+                <h3 className="text-lg font-semibold text-foreground">
                   Active QR Code
                 </h3>
-                <div className="flex items-center space-x-2 text-sm text-gray-600">
+                <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                   <Clock className="h-4 w-4" />
                   <span>{formatTime(timeLeft)}</span>
                 </div>
               </div>
               
-              <div className="bg-white p-4 rounded-lg">
+              <div className="bg-background p-4 rounded-lg">
                 <img
                   src={activeQR.code}
                   alt="QR Code"
@@ -219,24 +219,24 @@ export const QRCodeGenerator: React.FC = () => {
               
               <div className="text-sm space-y-2">
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Type:</span>
+                  <span className="text-muted-foreground">Type:</span>
                   <span className="font-medium capitalize">{activeQR.sessionType}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Generated:</span>
+                  <span className="text-muted-foreground">Generated:</span>
                   <span className="font-medium">
                     {new Date(activeQR.generatedAt).toLocaleTimeString()}
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Expires:</span>
+                  <span className="text-muted-foreground">Expires:</span>
                   <span className="font-medium">
                     {new Date(activeQR.expiresAt).toLocaleTimeString()}
                   </span>
                 </div>
                 {activeQR.location && (
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Location:</span>
+                    <span className="text-muted-foreground">Location:</span>
                     <span className="font-medium">
                       {activeQR.location.latitude.toFixed(4)}, {activeQR.location.longitude.toFixed(4)}
                     </span>
@@ -254,9 +254,9 @@ export const QRCodeGenerator: React.FC = () => {
             </>
           ) : (
             <div className="py-16">
-              <QrCode className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-              <p className="text-gray-500">No active QR code</p>
-              <p className="text-sm text-gray-400">Generate a new QR code to get started</p>
+              <QrCode className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
+              <p className="text-muted-foreground">No active QR code</p>
+              <p className="text-sm text-muted-foreground/80">Generate a new QR code to get started</p>
             </div>
           )}
         </div>

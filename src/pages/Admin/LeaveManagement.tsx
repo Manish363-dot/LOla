@@ -65,8 +65,8 @@ export const LeaveManagement: React.FC = () => {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-gray-900">Leave Management</h2>
-        <div className="text-sm text-gray-500">
+        <h2 className="text-2xl font-bold text-foreground">Leave Management</h2>
+        <div className="text-sm text-muted-foreground">
           Review and manage student leave applications
         </div>
       </div>
@@ -79,12 +79,12 @@ export const LeaveManagement: React.FC = () => {
             onClick={() => setStatusFilter(status as any)}
             className={`p-4 rounded-lg border text-left transition-colors ${
               statusFilter === status
-                ? 'border-blue-500 bg-blue-50'
-                : 'border-gray-200 bg-white hover:bg-gray-50'
+                ? 'border-primary bg-primary/10'
+                : 'border-border bg-background hover:bg-muted/40'
             }`}
           >
-            <div className="text-2xl font-bold text-gray-900">{count}</div>
-            <div className="text-sm text-gray-600 capitalize">
+            <div className="text-2xl font-bold text-foreground">{count}</div>
+            <div className="text-sm text-muted-foreground capitalize">
               {status === 'all' ? 'Total' : status}
             </div>
           </button>
@@ -93,12 +93,12 @@ export const LeaveManagement: React.FC = () => {
 
       {/* Search */}
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
         <input
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-background text-foreground"
           placeholder="Search by student name or ID..."
         />
       </div>
@@ -106,17 +106,17 @@ export const LeaveManagement: React.FC = () => {
       {/* Applications List */}
       <div className="space-y-4">
         {filteredApplications.length === 0 ? (
-          <div className="bg-white rounded-lg p-8 text-center">
-            <Clock className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-            <p className="text-gray-500">No leave applications found.</p>
+          <div className="rounded-lg p-8 text-center glass">
+            <Clock className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+            <p className="text-muted-foreground">No leave applications found.</p>
           </div>
         ) : (
           filteredApplications.map((application) => (
-            <div key={application.id} className="bg-white rounded-lg shadow border p-6">
+            <div key={application.id} className="rounded-lg shadow border p-6 glass">
               <div className="flex items-start justify-between">
                 <div className="flex-1">
                   <div className="flex items-center space-x-3 mb-2">
-                    <h3 className="text-lg font-semibold text-gray-900">
+                    <h3 className="text-lg font-semibold text-foreground">
                       {application.studentName}
                     </h3>
                     <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(application.status)}`}>
@@ -124,7 +124,7 @@ export const LeaveManagement: React.FC = () => {
                     </span>
                   </div>
                   
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4 text-sm text-gray-600">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4 text-sm text-muted-foreground">
                     <div>
                       <span className="font-medium">Student ID:</span>
                       <div>{application.studentId}</div>
@@ -144,14 +144,14 @@ export const LeaveManagement: React.FC = () => {
                   </div>
                   
                   <div className="mb-4">
-                    <span className="font-medium text-gray-700">Reason:</span>
-                    <p className="mt-1 text-gray-600 bg-gray-50 p-3 rounded-lg">
+                    <span className="font-medium text-foreground">Reason:</span>
+                    <p className="mt-1 text-foreground bg-muted p-3 rounded-lg">
                       {application.reason}
                     </p>
                   </div>
                   
                   {application.reviewedAt && (
-                    <div className="text-sm text-gray-500">
+                    <div className="text-sm text-muted-foreground">
                       Reviewed by {application.reviewedBy} on {format(new Date(application.reviewedAt), 'PPP')}
                     </div>
                   )}
