@@ -72,6 +72,12 @@ export const AnalyticsDashboard: React.FC = () => {
         borderColor: '#2563eb',
         backgroundColor: 'rgba(37, 99, 235, 0.1)',
         tension: 0.4,
+        borderWidth: 3,
+        pointBackgroundColor: '#2563eb',
+        pointBorderColor: '#ffffff',
+        pointBorderWidth: 2,
+        pointRadius: 6,
+        pointHoverRadius: 8,
       },
     ],
   };
@@ -83,6 +89,9 @@ export const AnalyticsDashboard: React.FC = () => {
         label: 'Attendance %',
         data: students.map(s => s.totalAttendance),
         backgroundColor: students.map(s => s.totalAttendance >= 75 ? '#16a34a' : '#dc2626'),
+        borderRadius: 8,
+        borderSkipped: false,
+        hoverBackgroundColor: students.map(s => s.totalAttendance >= 75 ? '#22c55e' : '#ef4444'),
       },
     ],
   };
@@ -93,7 +102,10 @@ export const AnalyticsDashboard: React.FC = () => {
       {
         data: [analytics.present, analytics.absent],
         backgroundColor: ['#16a34a', '#dc2626'],
+        hoverBackgroundColor: ['#22c55e', '#ef4444'],
         hoverOffset: 4,
+        borderWidth: 3,
+        borderColor: '#ffffff',
       },
     ],
   };
@@ -128,8 +140,8 @@ export const AnalyticsDashboard: React.FC = () => {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-gray-900">Analytics Dashboard</h2>
-        <div className="text-sm text-gray-500">
+        <h2 className="text-2xl font-bold text-foreground">Analytics Dashboard</h2>
+        <div className="text-sm text-muted-foreground">
           Overview of attendance trends and statistics
         </div>
       </div>
@@ -145,14 +157,14 @@ export const AnalyticsDashboard: React.FC = () => {
           };
 
           return (
-            <div key={index} className="bg-white p-6 rounded-lg shadow border">
+            <div key={index} className="glass p-6 rounded-xl shadow-lg hover-glow transition-all duration-300 transform hover:scale-105">
               <div className="flex items-center">
-                <div className={`p-3 rounded-lg ${colorClasses[stat.color as keyof typeof colorClasses]}`}>
+                <div className={`p-3 rounded-lg ${colorClasses[stat.color as keyof typeof colorClasses]} shadow-lg`}>
                   <Icon className="h-6 w-6" />
                 </div>
                 <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">{stat.title}</p>
-                  <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
+                  <p className="text-sm font-medium text-muted-foreground">{stat.title}</p>
+                  <p className="text-2xl font-bold text-foreground">{stat.value}</p>
                 </div>
               </div>
             </div>
@@ -163,46 +175,50 @@ export const AnalyticsDashboard: React.FC = () => {
       {/* Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Line Chart */}
-        <div className="bg-white p-6 rounded-lg shadow border">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">
+        <div className="glass p-6 rounded-xl shadow-lg hover-glow transition-all duration-300 transform hover:scale-105">
+          <h3 className="text-lg font-semibold text-foreground mb-4">
             Attendance Trend (Last 7 Days)
           </h3>
-          <Line data={lineChartData} options={{ responsive: true }} />
+          <div className="hover:shadow-[0_0_30px_rgba(37,99,235,0.3)] transition-shadow duration-300 rounded-lg p-2">
+            <Line data={lineChartData} options={{ responsive: true }} />
+          </div>
         </div>
 
         {/* Doughnut Chart */}
-        <div className="bg-white p-6 rounded-lg shadow border">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">
+        <div className="glass p-6 rounded-xl shadow-lg hover-glow transition-all duration-300 transform hover:scale-105">
+          <h3 className="text-lg font-semibold text-foreground mb-4">
             Overall Attendance Distribution
           </h3>
-          <div className="w-64 mx-auto">
+          <div className="w-64 mx-auto hover:shadow-[0_0_30px_rgba(22,163,74,0.3)] transition-shadow duration-300 rounded-lg p-2">
             <Doughnut data={doughnutData} options={{ responsive: true }} />
           </div>
         </div>
       </div>
 
       {/* Bar Chart */}
-      <div className="bg-white p-6 rounded-lg shadow border">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+      <div className="glass p-6 rounded-xl shadow-lg hover-glow transition-all duration-300 transform hover:scale-105">
+        <h3 className="text-lg font-semibold text-foreground mb-4">
           Individual Student Attendance
         </h3>
-        <Bar 
-          data={barChartData} 
-          options={{ 
-            responsive: true,
-            plugins: {
-              legend: {
-                display: false
+        <div className="hover:shadow-[0_0_30px_rgba(220,38,38,0.3)] transition-shadow duration-300 rounded-lg p-2">
+          <Bar 
+            data={barChartData} 
+            options={{ 
+              responsive: true,
+              plugins: {
+                legend: {
+                  display: false
+                }
+              },
+              scales: {
+                y: {
+                  beginAtZero: true,
+                  max: 100
+                }
               }
-            },
-            scales: {
-              y: {
-                beginAtZero: true,
-                max: 100
-              }
-            }
-          }} 
-        />
+            }} 
+          />
+        </div>
       </div>
     </div>
   );

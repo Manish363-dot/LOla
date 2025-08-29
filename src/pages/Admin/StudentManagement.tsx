@@ -27,7 +27,6 @@ export const StudentManagement: React.FC = () => {
     e.preventDefault();
     
     if (editingStudent) {
-      // Update existing student
       const updatedStudents = students.map(s =>
         s.id === editingStudent.id
           ? { ...s, ...formData, totalAttendance: s.totalAttendance }
@@ -36,7 +35,6 @@ export const StudentManagement: React.FC = () => {
       setStudents(updatedStudents);
       storage.setStudents(updatedStudents);
       
-      // Update in users table as well
       const users = storage.getUsers();
       const updatedUsers = users.map(u =>
         u.id === editingStudent.id
@@ -45,7 +43,6 @@ export const StudentManagement: React.FC = () => {
       );
       storage.setUsers(updatedUsers);
     } else {
-      // Add new student
       const newId = (Math.max(...students.map(s => parseInt(s.id)), 0) + 1).toString();
       const newStudent: Student = {
         id: newId,
@@ -84,7 +81,6 @@ export const StudentManagement: React.FC = () => {
       setStudents(updatedStudents);
       storage.setStudents(updatedStudents);
       
-      // Remove from users table as well
       const users = storage.getUsers();
       const updatedUsers = users.filter(u => u.id !== studentId);
       storage.setUsers(updatedUsers);
@@ -123,7 +119,7 @@ export const StudentManagement: React.FC = () => {
         <h2 className="text-2xl font-bold text-foreground">Student Management</h2>
         <button
           onClick={() => setShowAddForm(true)}
-          className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+          className="flex items-center space-x-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors hover-glow"
         >
           <Plus className="h-5 w-5" />
           <span>Add Student</span>
@@ -137,15 +133,15 @@ export const StudentManagement: React.FC = () => {
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-background text-foreground"
+          className="w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-background text-foreground"
           placeholder="Search students by name, ID, or email..."
         />
       </div>
 
       {/* Add/Edit Form */}
       {showAddForm && (
-        <div className="rounded-lg p-6 glass">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">
+        <div className="rounded-lg p-6 glass hover-glow">
+          <h3 className="text-lg font-semibold text-foreground mb-4">
             {editingStudent ? 'Edit Student' : 'Add New Student'}
           </h3>
           <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -157,7 +153,7 @@ export const StudentManagement: React.FC = () => {
                 type="text"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-background text-foreground"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-background text-foreground"
                 required
               />
             </div>
@@ -169,7 +165,7 @@ export const StudentManagement: React.FC = () => {
                 type="email"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-background text-foreground"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-background text-foreground"
                 required
               />
             </div>
@@ -181,7 +177,7 @@ export const StudentManagement: React.FC = () => {
                 type="text"
                 value={formData.studentId}
                 onChange={(e) => setFormData({ ...formData, studentId: e.target.value })}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-background text-foreground"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-background text-foreground"
                 required
               />
             </div>
@@ -192,7 +188,7 @@ export const StudentManagement: React.FC = () => {
               <select
                 value={formData.department}
                 onChange={(e) => setFormData({ ...formData, department: e.target.value })}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-background text-foreground"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-background text-foreground"
                 required
               >
                 <option value="">Select Department</option>
@@ -210,7 +206,7 @@ export const StudentManagement: React.FC = () => {
               <select
                 value={formData.year}
                 onChange={(e) => setFormData({ ...formData, year: parseInt(e.target.value) })}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-background text-foreground"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-background text-foreground"
                 required
               >
                 <option value={1}>1st Year</option>
@@ -227,7 +223,7 @@ export const StudentManagement: React.FC = () => {
                 type="tel"
                 value={formData.phoneNumber}
                 onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
-                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-background text-foreground"
+                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-background text-foreground"
                 required
               />
             </div>
@@ -241,7 +237,7 @@ export const StudentManagement: React.FC = () => {
               </button>
               <button
                 type="submit"
-                className="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
+                className="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors hover-glow"
               >
                 {editingStudent ? 'Update Student' : 'Add Student'}
               </button>
@@ -251,7 +247,7 @@ export const StudentManagement: React.FC = () => {
       )}
 
       {/* Students List */}
-      <div className="rounded-lg shadow overflow-hidden glass">
+      <div className="rounded-lg shadow overflow-hidden glass hover-glow">
         <div className="px-6 py-4 border-b border-border/50">
           <h3 className="text-lg font-semibold text-foreground">
             Students ({filteredStudents.length})

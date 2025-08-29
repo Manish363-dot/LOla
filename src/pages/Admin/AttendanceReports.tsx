@@ -49,14 +49,14 @@ export const AttendanceReports: React.FC = () => {
         <div className="flex space-x-3">
           <button
             onClick={handleExportPDF}
-            className="flex items-center space-x-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+            className="flex items-center space-x-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors hover-glow"
           >
             <FileText className="h-4 w-4" />
             <span>Export PDF</span>
           </button>
           <button
             onClick={handleExportExcel}
-            className="flex items-center space-x-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+            className="flex items-center space-x-2 px-4 py-2 bg-accent text-accent-foreground rounded-lg hover:bg-accent/90 transition-colors hover-glow"
           >
             <Download className="h-4 w-4" />
             <span>Export Excel</span>
@@ -65,7 +65,7 @@ export const AttendanceReports: React.FC = () => {
       </div>
 
       {/* Filters */}
-      <div className="rounded-lg p-6 glass">
+      <div className="rounded-lg p-6 glass hover-glow">
         <div className="flex items-center space-x-4 mb-4">
           <Filter className="h-5 w-5 text-muted-foreground" />
           <h3 className="text-lg font-semibold text-foreground">Filters</h3>
@@ -79,7 +79,7 @@ export const AttendanceReports: React.FC = () => {
               type="date"
               value={dateFilter.startDate}
               onChange={(e) => setDateFilter({ ...dateFilter, startDate: e.target.value })}
-              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-background text-foreground"
+              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-background text-foreground"
             />
           </div>
           <div>
@@ -90,7 +90,7 @@ export const AttendanceReports: React.FC = () => {
               type="date"
               value={dateFilter.endDate}
               onChange={(e) => setDateFilter({ ...dateFilter, endDate: e.target.value })}
-              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-background text-foreground"
+              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-background text-foreground"
             />
           </div>
           <div>
@@ -100,7 +100,7 @@ export const AttendanceReports: React.FC = () => {
             <select
               value={departmentFilter}
               onChange={(e) => setDepartmentFilter(e.target.value)}
-              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-background text-foreground"
+              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-background text-foreground"
             >
               <option value="">All Departments</option>
               {departments.map(dept => (
@@ -112,7 +112,7 @@ export const AttendanceReports: React.FC = () => {
       </div>
 
       {/* Reports Table */}
-      <div className="rounded-lg shadow overflow-hidden glass">
+      <div className="rounded-lg shadow overflow-hidden glass hover-glow">
         <div className="px-6 py-4 border-b border-border/50">
           <div className="flex items-center justify-between">
             <h3 className="text-lg font-semibold text-foreground">
@@ -126,7 +126,7 @@ export const AttendanceReports: React.FC = () => {
         </div>
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="">
+            <thead>
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
                   Date

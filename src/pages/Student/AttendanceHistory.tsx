@@ -2,13 +2,36 @@ import React, { useState } from 'react';
 import { Calendar, Filter, CheckCircle, XCircle, Clock } from 'lucide-react';
 import { storage } from '../../utils/storage';
 import { format } from 'date-fns';
+import { useAuth } from '@/hooks/useAuth';
 
 export const AttendanceHistory: React.FC = () => {
-  const currentUser = storage.getCurrentUser();
+  const { user: authUser } = useAuth();
   const students = storage.getStudents();
   const attendanceRecords = storage.getAttendanceRecords();
   
-  const currentStudent = students.find(s => s.id === currentUser?.id);
+  const currentStudent = React.useMemo(() => {
+    const byId = students.find(s => s.id === authUser?.id);
+    if (byId) return byId;
+    const byEmail = students.find(s => s.email === authUser?.email);
+    if (byEmail) return byEmail;
+    if (authUser && authUser.role === 'student') {
+      return {
+        id: authUser.id,
+        name: authUser.name,
+        email: authUser.email,
+        role: 'student',
+        studentId: (authUser as any).studentId || `TEMP-${authUser.id.slice(0, 6)}`,
+        department: 'Unknown',
+        year: 1,
+        phoneNumber: '',
+        totalAttendance: 0,
+        presentDays: 0,
+        totalDays: 20,
+        createdAt: new Date(),
+      } as any;
+    }
+    return undefined;
+  }, [students, authUser]);
   const studentRecords = attendanceRecords
     .filter(r => r.studentId === currentStudent?.studentId)
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());

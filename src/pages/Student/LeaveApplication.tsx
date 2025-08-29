@@ -3,13 +3,36 @@ import { Send, Calendar, FileText, Clock, CheckCircle, XCircle } from 'lucide-re
 import { storage } from '../../utils/storage';
 import { LeaveApplication as LeaveApplicationType } from '../../types';
 import { format } from 'date-fns';
+import { useAuth } from '@/hooks/useAuth';
 
 export const LeaveApplication: React.FC = () => {
-  const currentUser = storage.getCurrentUser();
+  const { user: authUser } = useAuth();
   const students = storage.getStudents();
   const leaveApplications = storage.getLeaveApplications();
   
-  const currentStudent = students.find(s => s.id === currentUser?.id);
+  const currentStudent = React.useMemo(() => {
+    const byId = students.find(s => s.id === authUser?.id);
+    if (byId) return byId;
+    const byEmail = students.find(s => s.email === authUser?.email);
+    if (byEmail) return byEmail;
+    if (authUser && authUser.role === 'student') {
+      return {
+        id: authUser.id,
+        name: authUser.name,
+        email: authUser.email,
+        role: 'student',
+        studentId: (authUser as any).studentId || `TEMP-${authUser.id.slice(0, 6)}`,
+        department: 'Unknown',
+        year: 1,
+        phoneNumber: '',
+        totalAttendance: 0,
+        presentDays: 0,
+        totalDays: 20,
+        createdAt: new Date(),
+      } as any;
+    }
+    return undefined;
+  }, [students, authUser]);
   const studentApplications = leaveApplications
     .filter(app => app.studentId === currentStudent?.studentId)
     .sort((a, b) => new Date(b.appliedAt).getTime() - new Date(a.appliedAt).getTime());

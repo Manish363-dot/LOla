@@ -63,8 +63,8 @@ export function PanelShell({ title, navItems, children, onLogout }: PanelShellPr
                 key={item.href}
                 to={item.href}
                 className={({ isActive }) =>
-                  `flex items-center space-x-3 px-3 py-2 rounded-xl text-sm transition-smooth hover-glow ${
-                    isActive ? 'bg-primary/10 text-primary' : 'text-muted-foreground hover:text-foreground'
+                  `flex items-center space-x-3 px-3 py-2 rounded-xl text-sm transition-all duration-200 hover-glow ${
+                    isActive ? 'bg-primary/10 text-primary scale-[1.02]' : 'text-muted-foreground hover:text-foreground'
                   }`
                 }
                 onClick={() => setSidebarOpen(false)}
